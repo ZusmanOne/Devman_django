@@ -28,5 +28,8 @@ class Image(models.Model):
         ordering = ['-number']
 
     def __str__(self):
-        return "%s %s" % (self.number,self.place)
+        return "%s %s" % (self.number, self.place)
+
+
+
 
