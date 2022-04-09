@@ -7,7 +7,7 @@ from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
     readonly_fields = ['get_preview']
-    
+
     def get_preview(self, obj):
         if obj.image:
             return mark_safe(f"<img src ='{obj.image.url}' width='100' height='100'>")
