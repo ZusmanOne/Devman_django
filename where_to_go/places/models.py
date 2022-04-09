@@ -20,12 +20,13 @@ class Place(models.Model):
 class Image(models.Model):
     image = models.ImageField(upload_to="image/%Y/%m/%d", blank=True)
     place = models.ForeignKey(Place, on_delete=models.CASCADE, null=True, blank=True, related_name='image')
-    number = models.PositiveIntegerField(db_index=True, verbose_name='Номер картинки')
+    number = models.PositiveIntegerField(db_index=True, default=0, verbose_name='Номер картинки')
 
     class Meta:
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображения'
-        ordering = ['-number']
+        ordering = ['number']
+
 
     def __str__(self):
         return "%s %s" % (self.number, self.place)
