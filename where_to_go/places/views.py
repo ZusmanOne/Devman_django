@@ -1,5 +1,5 @@
 from .models import *
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.http import JsonResponse
 
 
@@ -7,9 +7,7 @@ def index(request):
     places = Place.objects.all()
     places_list = []
     for i in places:
-        places_list.append({
-            "type": "FeatureCollection",
-            "features": [
+        places_list.append(
                 {
                     "type": "Feature",
                     "geometry": {
@@ -19,13 +17,15 @@ def index(request):
                     "properties": {
                         "title": i.title,
                         "placeId": i.pk,
-                        "detailsUrl": "#"
+                        "detailsUrl": reverse('place_detail', args=[i.pk])
                     }
                 }
-            ]
-
-        })
-    context = {'places': places_list}
+        )
+    places_json = {
+            "type": "FeatureCollection",
+            "features": places_list
+        }
+    context = {'places': places_json}
     return render(request, 'index.html', context)
 
 
@@ -40,6 +40,5 @@ def place_detail(request, place_id):
                         'lng': place.coord_long}
     }
     return JsonResponse(place_list, json_dumps_params={'ensure_ascii': False, 'indent': 4})
-
 
 
