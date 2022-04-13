@@ -39,6 +39,5 @@ def place_detail(request, place_id):
         'coordinates': {'lat': place.coord_lat,
                         'lng': place.coord_long}
     }
+
     return JsonResponse(place_list, json_dumps_params={'ensure_ascii': False, 'indent': 4})
-
-

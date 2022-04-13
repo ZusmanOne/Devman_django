@@ -4,8 +4,8 @@ from django.utils.safestring import mark_safe
 from adminsortable2.admin import SortableInlineAdminMixin
 
 
-class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
-    model = Image
+class PlaceImageInline(SortableInlineAdminMixin, admin.TabularInline):
+    model = PlaceImage
     extra = 0
     readonly_fields = ['get_preview']
 
@@ -15,13 +15,13 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
-    inlines = [ImageInline,]
+    inlines = [PlaceImageInline,]
 
 
-@admin.register(Image)
+@admin.register(PlaceImage)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('number',)
-    raw_id_fields = ("place",)
+    list_display = ('number','id',)
+
 
 
 
