@@ -18,7 +18,7 @@ class Place(models.Model):
         return self.title
 
 
-class Image(models.Model):
+class PlaceImage(models.Model):
     image = models.ImageField(upload_to="image/%Y/%m/%d", blank=True)
     place = models.ForeignKey(Place, on_delete=models.CASCADE, null=True, blank=True, related_name='image')
     number = models.PositiveIntegerField(db_index=True, default=0, verbose_name='Номер картинки')
