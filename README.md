@@ -8,7 +8,7 @@
 
 - Скачайте код 
 ```console 
-  https://github.com/ZusmanOne/Devman_django.git
+ git clone https://github.com/ZusmanOne/Devman_django.git
   ```
 - создайте виртуальное окружение командой
 ```console
