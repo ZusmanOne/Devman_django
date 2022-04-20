@@ -133,7 +133,7 @@ dmypy.json
 
 # Custom
 media/
-where_to_go/static/where-to-go-frontend/places/
+where_to_go/static/where-to-go-frontend/places
 .idea
 .vscode
 Thumbs.db
