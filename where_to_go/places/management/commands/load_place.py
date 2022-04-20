@@ -1,4 +1,3 @@
-import json
 from urllib.parse import urlsplit
 import requests
 from places.models import Place, PlaceImage
@@ -15,26 +14,25 @@ class Command(BaseCommand):
         url_place = options['url_place']
         response_place = requests.get(url_place)
         response_place.raise_for_status()
-        json_place = json.loads(response_place.content)
+        json_place = response_place.json()
         new_place, created = Place.objects.get_or_create(
             title=json_place['title'],
-            description_short=json_place['description_short'],
-            description_long=json_place['description_long'],
-            coord_long=json_place['coordinates']['lng'],
-            coord_lat=json_place['coordinates']['lat'],
-        )
+            defaults={
+                'description_short': json_place['description_short'],
+                'description_long': json_place['description_long'],
+                'coord_long': json_place['coordinates']['lng'],
+                'coord_lat': json_place['coordinates']['lat'],
+            })
         if not created:
             print(f'object {new_place} already created')
-        url_image = json_place['imgs']
+        image_url = json_place['imgs']
         if not new_place.image.all():
-            for img in url_image:
+            for img in image_url:
                 response_image = requests.get(img)
+                response_image.raise_for_status()
                 urlsplit_image = urlsplit(img)
                 image_name = urlsplit_image.path.split('/')[-1]
                 new_image, created = PlaceImage.objects.get_or_create(
                     place=new_place,
                     image=ImageFile(ContentFile(response_image.content), name=image_name),
                 )
-
-
-

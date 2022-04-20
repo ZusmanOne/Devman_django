@@ -2,7 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+*.pyd
+*.pyo
+*.pyc
 # C extensions
 *.so
 
@@ -131,3 +133,11 @@ dmypy.json
 
 # Custom
 media/
+where_to_go/static/where-to-go-frontend/places
+.idea
+.vscode
+Thumbs.db
+.DS_Store
+*.png
+*.svg
+*.editorconfig

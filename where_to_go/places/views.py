@@ -1,37 +1,37 @@
-from .models import *
+from .models import Place
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import JsonResponse
 
 
 def index(request):
     places = Place.objects.all()
-    places_list = []
-    for i in places:
-        places_list.append(
+    serialized_places = []
+    for place in places:
+        serialized_places.append(
                 {
                     "type": "Feature",
                     "geometry": {
                         "type": "Point",
-                        "coordinates": [i.coord_long, i.coord_lat]
+                        "coordinates": [place.coord_long, place.coord_lat]
                     },
                     "properties": {
-                        "title": i.title,
-                        "placeId": i.pk,
-                        "detailsUrl": reverse('place_detail', args=[i.pk])
+                        "title": place.title,
+                        "placeId": place.pk,
+                        "detailsUrl": reverse('place_detail', args=[place.pk])
                     }
                 }
         )
-    places_json = {
+    content_places = {
             "type": "FeatureCollection",
-            "features": places_list
+            "features": serialized_places
         }
-    context = {'places': places_json}
+    context = {'places': content_places}
     return render(request, 'index.html', context)
 
 
 def place_detail(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
-    place_list = {
+    serialized_place = {
         'title': place.title,
         'imgs': [img.image.url for img in place.image.all()],
         'description_short': place.description_short,
@@ -40,4 +40,4 @@ def place_detail(request, place_id):
                         'lng': place.coord_long}
     }
 
-    return JsonResponse(place_list, json_dumps_params={'ensure_ascii': False, 'indent': 4})
+    return JsonResponse(serialized_place, json_dumps_params={'ensure_ascii': False, 'indent': 4})
