@@ -16,9 +16,9 @@ from environs import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-env = Env()
-env.read_env()
+#
+# env = Env()
+# env.read_env()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -28,7 +28,7 @@ env.read_env()
 SECRET_KEY='django-insecure-vn#us@kj4h@hfmqnlj4kauex!)su_cn4u-fkvaht=gw8%(-)ym'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG') == "True"
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
