@@ -26,8 +26,6 @@ class Command(BaseCommand):
         if not created:
             print(f'object {place} already created')
         image_url = serialized_place['imgs']
-
-        # if not place.images.all():
         for img in image_url:
             if place.images.all():
                 break
