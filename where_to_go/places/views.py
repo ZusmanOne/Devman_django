@@ -21,11 +21,11 @@ def index(request):
                     }
                 }
         )
-    content_places = {
+    serialized_content = {
             "type": "FeatureCollection",
             "features": serialized_places
         }
-    context = {'places': content_places}
+    context = {'places': serialized_content}
     return render(request, 'index.html', context)
 
 
@@ -33,7 +33,7 @@ def place_detail(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
     serialized_place = {
         'title': place.title,
-        'imgs': [img.image.url for img in place.image.all()],
+        'imgs': [img.image.url for img in place.images.all()],
         'description_short': place.description_short,
         'description_long': place.description_long,
         'coordinates': {'lat': place.coord_lat,
